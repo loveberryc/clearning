@@ -1,2 +1,2 @@
-# clearning
+# Clearning
 learning for c
