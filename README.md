@@ -1,2 +1,2 @@
 # Clearning
-learning c 
+learning c for c
