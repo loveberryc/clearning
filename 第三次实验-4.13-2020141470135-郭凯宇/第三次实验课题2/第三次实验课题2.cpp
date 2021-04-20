@@ -9,8 +9,8 @@ public:
 	Time(int h, int m, int s);
 	Time operator+(Time t1);
 	Time operator-(Time t1);
-	void operator<<(Time t1);
-	Time operator>>(Time t1);
+	friend ostream& operator <<(ostream&, Time&);
+	friend istream& operator >>(istream&, Time&);
 };
 Time::Time(int h, int m, int s) {
 	hour = h;
@@ -29,27 +29,29 @@ Time Time::operator-(Time t1) {
 	second -= t1.second;
 	return *this;
 }
-void Time::operator<<(Time) {
-	cout << hour << "ʱ " << minute << "�� " << second << "�� " << endl;
+istream& operator>>(istream& input, Time& t) {
+	cout << "输入时，分，秒：" << endl;
+	input >> t.hour >> t.minute >> t.second;
+	return input;
 }
-Time Time::operator>>(Time) {
-	cout << "ʱ��";
-	cin >> hour;
-	cout << "�֣�";
-	cin >> minute;
-	cout << "�룺";
-	cin >> second;
-	return *this;
+ostream& operator<<(ostream& output, Time& t) {
+	output << "时：";
+	output << t.hour;
+	output << "分：";
+	output << t.minute;
+	output << "秒：";
+	output << t.second << endl;
+	return output;
 }
 int main() {
 	Time t1(3, 8, 34);
 	Time t2(4, 21, 11);
 	t1 = t1 + t2;
 	t2 = t2 + t1;
-	t1 << t1;
-	t2 << t2;
-	t1 >> t1;
+	cout << t1;
+	cout << t2;
+	cin >> t1;
 	t2 = t1 + t2;
-	t2 << t2;
+	cout << t2;
 	return 0;
 }
