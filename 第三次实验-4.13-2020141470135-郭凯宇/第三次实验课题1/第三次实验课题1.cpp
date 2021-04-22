@@ -9,8 +9,8 @@ public:
 	Date(int y, int m, int d);
 	Date operator+(Date d1);
 	Date operator-(Date d1);
-	void operator<<(Date);
-	Date operator>>(Date);
+	friend ostream& operator <<(ostream&, Date&);
+	friend istream& operator >>(istream&, Date&);
 };
 
 Date::Date(int y, int m, int d) {
@@ -30,15 +30,38 @@ Date Date::operator-(Date d1) {
 	year -= d1.year;
 	return *this;
 }
-void Date::operator<<(Date){
-	cout << year << "年 " << month << "月 " << day << "日" << endl;
+istream& operator>>(istream& input, Date& d) {
+	cout << "杈撳叆骞达紝鏈堬紝鏃ワ細" << endl;
+	input >> d.year >> d.month >> d.day;
+	return input;
+}
+ostream& operator<<(ostream& output, Date& d) {
+	output << "骞达細";
+	output << d.year;
+	output << "鏈堬細";
+	output << d.month;
+	output << "鏃ワ細";
+	output << d.day << endl;
+	return output;
+}
+int main() {
+	Date d1(2002,9,2);
+	Date d2(3, 2, 20);
+	d1 = d1 + d2;
+	cout << d1;
+	d2 = d1 - d2;
+	cin >> d2;
+	cout << d1;
+	d2 = d2 + d1;
+	cout << d2;
+	return 0;
 }
 Date Date::operator>>(Date) {
-	cout << "年：";
+	cout << "脛锚拢潞";
 	cin >> year;
-	cout << "月：";
+	cout << "脭脗拢潞";
 	cin >> month;
-	cout << "日：";
+	cout << "脠脮拢潞";
 	cin >> day;
 	return *this;
 }
